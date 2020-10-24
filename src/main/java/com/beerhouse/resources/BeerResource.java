@@ -18,14 +18,12 @@ public class BeerResource {
     @Autowired
     BeerRepository beerRepository;
 
-    /*@GetMapping("/{id}")
-    public Optional<Beer> listBeer(@PathVariable(value = "id") long id) {
+    @GetMapping("/{id}")
+    public Optional<Beer> listBeer(@PathVariable(value = "id") Integer id) {
         return beerRepository.findById(id);
-    }*/
-
-    @GetMapping("/")
+    }
+    @GetMapping()
     public List<Beer> listBeers() {
         return beerRepository.findAll();
     }
-
 }
