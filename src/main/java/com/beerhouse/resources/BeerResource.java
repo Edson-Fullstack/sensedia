@@ -1,29 +1,31 @@
 package com.beerhouse.resources;
 
 import com.beerhouse.models.Beer;
-import com.beerhouse.repository.IBeerRepository;
+import com.beerhouse.repository.BeerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/beers")
 public class BeerResource {
     @Autowired
-    IBeerRepository beerRepository;
+    BeerRepository beerRepository;
+
+    /*@GetMapping("/{id}")
+    public Optional<Beer> listBeer(@PathVariable(value = "id") long id) {
+        return beerRepository.findById(id);
+    }*/
 
     @GetMapping("/")
     public List<Beer> listBeers() {
         return beerRepository.findAll();
     }
-
-//    @GetMapping("/{id}")
-//    public Beer listBeer(@PathVariable(value = "id") long id) {
-//        return (Beer)beerRepository.findOne(id);
-//    }
 
 }
