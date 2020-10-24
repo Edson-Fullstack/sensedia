@@ -23,5 +23,8 @@ public class BeerResource {
     public List<Beer> listBeers() {
         return beerRepository.findAll();
     }
-    
+    @PostMapping()
+    public Beer saveBeer(@RequestBody Beer beer){
+        return beerRepository.save(beer);
+    }
 }
