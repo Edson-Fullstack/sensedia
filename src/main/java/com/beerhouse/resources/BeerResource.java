@@ -19,11 +19,6 @@ public class BeerResource {
     @Autowired
     BeerRepository beerRepository;
 
-    @ApiOperation(value = "Return a specific beer by id")
-    @GetMapping("/{id}")
-    public Optional<Beer> listBeer(@PathVariable(value = "id") Integer id) {
-        return beerRepository.findById(id);
-    }
     @ApiOperation(value = "Return a beer list")
     @GetMapping()
     public List<Beer> listBeers() {
@@ -34,4 +29,11 @@ public class BeerResource {
     public Beer saveBeer(@RequestBody Beer beer){
         return beerRepository.save(beer);
     }
+
+    @ApiOperation(value = "Return a specific beer by id")
+    @GetMapping("/{id}")
+    public Optional<Beer> listBeer(@PathVariable(value = "id") Integer id) {
+        return beerRepository.findById(id);
+    }
+
 }
