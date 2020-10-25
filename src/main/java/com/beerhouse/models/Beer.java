@@ -2,12 +2,16 @@ package com.beerhouse.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Required;
+
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -25,9 +29,10 @@ public class Beer implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
+    @NotNull
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @Column(nullable = false)
     private String ingredients;
 
     @Column(name = "alcohol_content")

@@ -1,0 +1,15 @@
+# Use postgres/example user/password credentials
+#localhost:5432/postgres-postgres-postgres
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    container_name: "postgres"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+
+#docker-compose up
