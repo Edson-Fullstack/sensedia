@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Beer implements com.beerhouse.models.interfaces.IBeer {
+public class Beer implements com.beerhouse.models.interfaces.IBeer , Cloneable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,5 +48,21 @@ public class Beer implements com.beerhouse.models.interfaces.IBeer {
         this.setAlcoholContent(alcoholContent);
         this.setPrice(price);
         this.setCategory(category);
+    }
+    public Beer Clone() throws CloneNotSupportedException {
+        return (Beer) this.clone();
+    }
+
+    public boolean Equals(Beer beer) {
+        if(this.getId()==beer.getId() &&
+            this.getName()==beer.getName() &&
+            this.getIngredients()==beer.getIngredients() &&
+            this.getAlcoholContent()==beer.getAlcoholContent() &&
+            this.getPrice()==beer.getPrice() &&
+            this.getCategory()==beer.getCategory()) {
+                return true;
+        }else{
+                return false;
+        }
     }
 }
