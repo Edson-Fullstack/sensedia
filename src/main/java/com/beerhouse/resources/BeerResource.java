@@ -53,10 +53,14 @@ public class BeerResource {
     @ResponseStatus(value = HttpStatus.OK)
     public Beer updateBeers(@PathVariable(value = "id") String id,@Valid @RequestBody Beer beer){
         Optional<Beer> beerInternal=beerRepository.findById(Integer.valueOf(id));
-        if(beer.getId()==null) {
+        if(!beerInternal.isPresent()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found"
+            );
+        }else{
             beer.setId(beerInternal.get().getId());
+            return beerRepository.save(beer);
         }
-        return beerRepository.save(beer);
 
     }
 

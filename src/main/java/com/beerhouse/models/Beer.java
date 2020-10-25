@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Beer implements Serializable {
+public class Beer implements com.beerhouse.models.interfaces.IBeer {
 
     private static final long serialVersionUID = 1L;
 
