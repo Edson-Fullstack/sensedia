@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -33,24 +34,40 @@ public class BeerResource {
         return beerRepository.saveAll(Arrays.asList(beers.clone()));
     }
 
-        /*public ResponseEntity saveBeers(@Valid @RequestBody Beer[] beers){
-        List<Beer> savedBeers=beerRepository.saveAll(Arrays.asList(beers.clone()));
-        ResponseEntity response = new ResponseEntity(HttpStatus.CREATED);
-        return response;
-    }*/
 
     @ApiOperation(value = "Return a specific beer by id")
     @GetMapping("/{id}")
-    public Optional<Beer> listBeer(@PathVariable(value = "id") Integer id) {
-        return beerRepository.findById(id);
+    @ResponseStatus(value = HttpStatus.OK)
+    public Optional<Beer> listBeer(@PathVariable(value = "id") String id) {
+        Optional<Beer> beer = beerRepository.findById(Integer.valueOf(id));
+        if(beer.isPresent()){
+            return beer;
+        }else{
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, "entity not found"
+            );
+        }
     }
     @ApiOperation(value = "Update a beer and return the beer")
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Beer updateBeers(@PathVariable(value = "id") Integer id,@Valid @RequestBody Beer beer){
-        Optional<Beer> beerInternal=beerRepository.findById(id);
+    public Beer updateBeers(@PathVariable(value = "id") String id,@Valid @RequestBody Beer beer){
+        Optional<Beer> beerInternal=beerRepository.findById(Integer.valueOf(id));
+        if(beer.getId()==null) {
+            beer.setId(beerInternal.get().getId());
+        }
+        return beerRepository.save(beer);
+
+    }
+
+    @ApiOperation(value = "Update a beer and return the beer")
+    @PatchMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Beer update2Beers(@PathVariable(value = "id") String id, @Valid @RequestBody Beer beer){
+        Optional<Beer> beerInternal=beerRepository.findById(Integer.valueOf(id));
         Beer beerReturn = null;
-        if(!beerInternal.equals(beer)) {
+        if(beerInternal.isPresent() && !beerInternal.equals(beer)) {
+            beer.setId(beerInternal.get().getId());
             beerReturn = beerRepository.save(beer);
         }
         return beerReturn;
@@ -60,11 +77,18 @@ public class BeerResource {
     @ApiOperation(value = "Delete a beer by id")
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteBeer(@PathVariable(value = "id") Integer id) {
-        Optional<Beer> internalBeer=beerRepository.findById(id);
+    public void deleteBeer(@PathVariable(value = "id") String id) {
+        Optional<Beer> internalBeer=beerRepository.findById(Integer.valueOf(id));
         if(internalBeer.isPresent()){
-            beerRepository.deleteById(id);
+            beerRepository.deleteById(Integer.valueOf(id));
+        }else {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "entity not found"
+            );
         }
     }
+
+
+
 
 }
