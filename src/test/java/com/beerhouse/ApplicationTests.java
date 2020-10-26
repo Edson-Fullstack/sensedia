@@ -34,7 +34,7 @@ class ApplicationTests {
     @DisplayName("Test if test module is working")
     @Tag("web")
     public void start(){
-        Assert.assertEquals(1,2);
+        Assert.assertEquals(1,1);
     }
     @Test
     @DisplayName("Test clone class beer")
