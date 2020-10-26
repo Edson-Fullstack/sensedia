@@ -84,14 +84,14 @@ public class BeerResource {
 
     @ApiOperation(value = "Delete a beer by id")
     @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteBeer(@PathVariable(value = "id") String id) {
         Optional<Beer> internalBeer=beerRepository.findById(Integer.valueOf(id));
         if(internalBeer.isPresent()){
             beerRepository.deleteById(Integer.valueOf(id));
         }else {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
+                    HttpStatus.NO_CONTENT, "entity not found"
             );
         }
     }
