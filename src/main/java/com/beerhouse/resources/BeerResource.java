@@ -27,6 +27,10 @@ public class BeerResource {
     public List<Beer> listBeers() {
         return beerRepository.findAll();
     }
+    @GetMapping("/a")
+    public String hello() {
+        return "Hello, World";
+    }
     @ApiOperation(value = "Create a beer and return the beer")
     @PostMapping()
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -55,7 +59,7 @@ public class BeerResource {
         Optional<Beer> beerInternal=beerRepository.findById(Integer.valueOf(id));
         if(!beerInternal.isPresent()) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
+                    HttpStatus.NO_CONTENT, "entity not found"
             );
         }else{
             beer.setId(beerInternal.get().getId());
