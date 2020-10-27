@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-alpine
-ADD target/craft-beer-0.0.1-SNAPSHOT.jar	craft-beer-0.0.1-SNAPSHOT.jar
-COPY	target/craft-beer-0.0.1-SNAPSHOT.jar	craft-beer-0.0.1-SNAPSHOT.jar
+FROM openjdk:8
+ADD target/craft-beer.jar	craft-beer.jar
+COPY	target/craft-beer.jar	craft-beer.jar
 EXPOSE 9000
-ENTRYPOINT ["java", "-jar", "craft-beer-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "craft-beer.jar"]

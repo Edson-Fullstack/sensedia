@@ -5,6 +5,7 @@ import com.beerhouse.repository.BeerRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,10 +27,6 @@ public class BeerResource {
     @GetMapping()
     public List<Beer> listBeers() {
         return beerRepository.findAll();
-    }
-    @GetMapping("/a")
-    public String hello() {
-        return "Hello, World";
     }
     @ApiOperation(value = "Create a beer and return the beer")
     @PostMapping()
