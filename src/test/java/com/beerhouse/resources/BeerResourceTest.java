@@ -1,6 +1,7 @@
 package com.beerhouse.resources;
 
 import com.beerhouse.repository.BeerRepository;
+import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,9 +36,9 @@ class BeerResourceTest {
     @Test
     public void get() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/beers/1")
+                MockMvcRequestBuilders.get("/beers/0")
         )
-        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.status().is(HttpStatus.SC_OK))
         .andExpect(MockMvcResultMatchers.content().string("null"));
     }
     @Test
@@ -63,20 +64,20 @@ class BeerResourceTest {
     @Test
     public void put() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/beers/1")
-        ).andExpect(MockMvcResultMatchers.status().isOk());
+                MockMvcRequestBuilders.put("/beers/0")
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.SC_BAD_REQUEST));
     }
     @Test
     public void patch() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/beers/1")
-        ).andExpect(MockMvcResultMatchers.status().isOk());
+                MockMvcRequestBuilders.patch("/beers/0")
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.SC_BAD_REQUEST));
     }
     @Test
     public void delete() throws Exception {
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/beers/1")
-        ).andExpect(MockMvcResultMatchers.status().isOk());
+                MockMvcRequestBuilders.delete("/beers/0")
+        ).andExpect(MockMvcResultMatchers.status().is(HttpStatus.SC_OK));
     }
 
 }
